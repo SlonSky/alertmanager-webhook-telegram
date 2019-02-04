@@ -37,5 +37,18 @@ Running on docker
 =================
 
 ```
-docker run -d -e bottoken="telegramBotToken" -e chatid="telegramChatID" -p 9119:9119 slonskydev/tgalert:latest
+docker run -d -e botToken="telegramBotToken" -e chatID="telegramChatID" -e secret_key="flaskAppSecretKey" -p 9119:9119 slonskydev/tgalert:latest
 ```
+
+Running on docker-compose
+=================
+```
+  tgAlert:
+    image: slonskydev/tgalert:latest
+    container_name: tgAlert
+    environment:
+      - botToken "telegramBotToken"
+      - chatid "telegramChatID"
+      - secret_key "flaskAppSecretKey"
+```
+Place `tgAlert` service in the same nerwork with `alertmanager` service.
