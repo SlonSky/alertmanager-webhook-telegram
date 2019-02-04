@@ -1,6 +1,7 @@
 import telegram
 import logging
 
+import os
 from flask import Flask
 from flask import request
 from datetime import datetime
@@ -8,18 +9,22 @@ from datetime import datetime
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-app.secret_key = 'aYT>.L$kk2h>!'
+app.secret_key = os.getenv('secret_key')
 
-CHAT_ID = 'chatID'
-TOKEN = 'botToken'
+CHAT_ID = os.getenv('chatID')
+TOKEN = os.getenv('botToken')
+
+logger.info('Connecting to chat: ' + str(CHAT_ID))
+logger.info('Token is: ' + str(TOKEN))
 
 bot = telegram.Bot(token=TOKEN)
 
 @app.route('/alert', methods = ['POST'])
 def postAlertmanager():
 
+    logger.info('Got request')
+    
     content = request.get_json()
-
     if not content:
         abort(400)
 
@@ -37,6 +42,8 @@ def postAlertmanager():
     for annotation in content['alerts'][0]['annotations']:
         message += '{}: {}\n'.format(annotation, content['alerts'][0]['annotations'][annotation])
     bot.sendMessage(chat_id=CHAT_ID, text=message)
+    
+    logger.info('Send message: ' + message)
 
     return ''
 
