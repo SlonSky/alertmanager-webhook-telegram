@@ -37,5 +37,5 @@ Running on docker
 =================
 
 ```
-docker run -d -e bottoken="telegramBotToken" -e chatid="telegramChatID" -p 9119:9119 vvk123/alertmanager-webhook-telegram:latest
+docker run -d -e bottoken="telegramBotToken" -e chatid="telegramChatID" -p 9119:9119 slonskydev/tgalert::latest
 ```
