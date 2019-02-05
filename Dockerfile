@@ -1,13 +1,10 @@
-FROM alpine:3.7
+FROM python:3.6
 
 COPY docker/run.sh *.py requirements.txt /alertmanager-webhook-telegram/
 
 WORKDIR /alertmanager-webhook-telegram
 
-RUN set -xe ;\
-    apk update ;\
-    apk add gcc git py-pip bash ;\
-    pip install setuptools;\
+RUN pip install setuptools && \
     pip install -r requirements.txt ;\
     chmod +x run.sh
 
