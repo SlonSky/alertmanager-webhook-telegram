@@ -6,7 +6,8 @@ WORKDIR /alertmanager-webhook-telegram
 
 RUN set -xe ;\
     apk update ;\
-    apk add git py-pip bash ;\
+    apk add gcc git py-pip bash ;\
+    pip install setuptools;\
     pip install -r requirements.txt ;\
     chmod +x run.sh
 
